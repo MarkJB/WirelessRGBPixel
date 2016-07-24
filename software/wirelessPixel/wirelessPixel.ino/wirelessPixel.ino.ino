@@ -40,10 +40,10 @@ void setup() {
   // Choose your LED type - most likey it will be WS2812B
   // but am including a few others for convenience as they
   // might work as well.
-  //FastLED.addLeds<WS2811, LED_PIN, RGB>(leds, NUM_LEDS);
+  FastLED.addLeds<WS2811, LED_PIN, RGB>(leds, NUM_LEDS);
   //FastLED.addLeds<WS2812, LED_PIN, RGB>(leds, NUM_LEDS);
   //FastLED.addLeds<WS2812B, LED_PIN, RGB>(leds, NUM_LEDS);
-  FastLED.addLeds<NEOPIXEL, LED_PIN>(leds, NUM_LEDS);
+  //FastLED.addLeds<NEOPIXEL, LED_PIN>(leds, NUM_LEDS);
   mySerial.println("Setup complete");
 
 
@@ -74,6 +74,7 @@ void loop() {
     radio.read( &receivedData, sizeof(receivedData) );
     for(int i=0; i < 4; i++)
     {
+      mySerial.println(i);
       mySerial.println(receivedData[i]);
     }
     

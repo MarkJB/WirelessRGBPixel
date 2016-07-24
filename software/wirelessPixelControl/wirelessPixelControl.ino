@@ -25,9 +25,14 @@ int r,g,b;
 
 void setup() {
   Serial.begin(115200);
-  Serial.println(F("RF24/examples/GettingStarted"));
-  Serial.println(F("*** PRESS 'T' to begin transmitting to the other node"));
-  
+  Serial.println("WirelessRGBPixel Control v1");
+  Serial.println("Commands available:");
+  Serial.println("Change colour: CR,G,B");
+  Serial.println("Random colour: R");
+  Serial.println("Turn off LEDs: O");
+  Serial.println("Show this help info: H/?");
+  Serial.println("Fade to black: Not implemented");
+  Serial.println("Blend to colour: Not implemented");
   radio.begin();
 
   // Set the PA Level low to prevent power supply related issues since this is a
@@ -47,119 +52,114 @@ void setup() {
   radio.startListening();
 }
 
-void loop() {
-  
-  
-/****************** Ping Out Role ***************************/  
-if (role == 1)  {
-    
-    radio.stopListening();                                    // First, stop listening so we can talk.
-    
-    
-    //Serial.println(F("Now sending"));
-
-
-  /*for (r=0; r<255; r=r+10) //Test: RGB colour fade. How do we do this using the FastLED library on the receiving end so we don't have to send lots and lots of radio packets?
-  {
-    for (g=0; g<255; g=g+10)
-    {
-      //
-      for (b=0; b<255; b=b+10)
-      {
-        //
-            //byte sendRGBData[4] = {random(0, 256),random(0, 256),random(0, 256),random(0, 256)};                             // Take the time, and send it.  This will block until complete
-            byte sendRGBData[4] = {r,g,b,0};                             // Take the time, and send it.  This will block until complete
-            if (!radio.write( &sendRGBData, sizeof(sendRGBData) ))
-            {
-              Serial.println(F("failed"));
-            }
-      }
-    }
-  }*/
-
-            byte sendRGBData[4] = {random(0, 256),random(0, 256),random(0, 256),random(0, 256)};                             // Send data over radio. Blocks until done
-            
-            if (!radio.write( &sendRGBData, sizeof(sendRGBData) ))
-            {
-              //Serial.println(F("failed"));
-            }
-        
-    //radio.startListening();                                    // Now, continue listening
-    
-    //unsigned long started_waiting_at = micros();               // Set up a timeout period, get the current microseconds
-    //boolean timeout = false;                                   // Set up a variable to indicate if a response was received or not
-    
-    //while ( ! radio.available() ){                             // While nothing is received
-      //if (micros() - started_waiting_at > 200000 ){            // If waited longer than 200ms, indicate timeout and exit while loop
-        //  timeout = true;
-          //break;
-      //}      
-    //}
-        
-    //if ( timeout ){                                             // Describe the results
-        //Serial.println(F("Failed, response timed out."));
-    //}else{
-      //  unsigned long got_time;                                 // Grab the response, compare, and send to debugging spew
-      //  radio.read( &got_time, sizeof(unsigned long) );
-      //  unsigned long end_time = micros();
-        
-        // Spew it
-        //Serial.print(F("Sent "));
-        //Serial.print(start_time);
-        //Serial.print(F(", Got response "));
-        //Serial.print(got_time);
-        //Serial.print(F(", Round-trip delay "));
-        //Serial.print(end_time-start_time);
-        //Serial.println(F(" microseconds"));
-    //}
-
-    // Try again 1s later
-    //delay(1000);
-  }
-
-
-
-/****************** Pong Back Role ***************************/
-
-  if ( role == 0 )
-  {
-    unsigned long got_time;
-    
-    if( radio.available()){
-                                                                    // Variable for the received timestamp
-      while (radio.available()) {                                   // While there is data ready
-        radio.read( &got_time, sizeof(unsigned long) );             // Get the payload
-      }
-     
-      radio.stopListening();                                        // First, stop listening so we can talk   
-      radio.write( &got_time, sizeof(unsigned long) );              // Send the final one back.      
-      radio.startListening();                                       // Now, resume listening so we catch the next packets.     
-      Serial.print(F("Sent response "));
-      Serial.println(got_time);  
-   }
- }
-
-
-
-
-/****************** Change Roles via Serial Commands ***************************/
-
+void loop() 
+{
   if ( Serial.available() )
   {
-    char c = toupper(Serial.read());
-    if ( c == 'T' && role == 0 ){      
-      Serial.println(F("*** CHANGING TO TRANSMIT ROLE -- PRESS 'R' TO SWITCH BACK"));
-      role = 1;                  // Become the primary transmitter (ping out)
+    char firstReceivedByte = toupper(Serial.read());
     
-   }else
-    if ( c == 'R' && role == 1 ){
-      Serial.println(F("*** CHANGING TO RECEIVE ROLE -- PRESS 'T' TO SWITCH BACK"));      
-       role = 0;                // Become the primary receiver (pong back)
-       radio.startListening();
-       
+    switch(firstReceivedByte)
+    {
+      case 'C': //If the first char received is a 'C' that indicates a change colour CRGB command so get the rest of it and send it
+      {
+        Serial.println("Colour change command: Cn,n,n");
+        byte sendRGBData[4] = {'C',0,0,0};  //Change colour command: C,R,G,B (defaults to off)
+        if (Serial.available() >= 2) 
+        {
+          for (int i=0; i<3; i++) 
+          {
+            sendRGBData[i] = Serial.parseInt(); 
+            //sendRGBData[i] = Serial.read();
+          }
+        }
+        radio.stopListening();
+        // Send data over radio. Blocks until done
+        if (!radio.write( &sendRGBData, sizeof(sendRGBData) ))
+        {
+          //Serial.println(F("failed"));
+        }
+        break; 
+      }
+      
+      case 'R': //If the first char received is a 'R' that indicates a RANDOM change colour CRGB command so generate the rest of it and send it
+      {
+        Serial.println("Random Colour change command: R");
+        byte sendRGBData[4] = {'C',0,0,0};  //Change colour command data (defaults to off)
+
+        for (int i=0; i<3; i++) 
+        {
+          sendRGBData[i] = random(0,256); 
+          //sendRGBData[i] = Serial.read();
+        }
+
+        radio.stopListening();
+        // Send data over radio. Blocks until done
+        if (!radio.write( &sendRGBData, sizeof(sendRGBData) ))
+        {
+          //Serial.println(F("failed"));
+        }
+        break; 
+      }
+      
+      case 'O': //If the first char received is a 'O' turn off LEDs
+      {
+        Serial.println("Turn off LEDs command: O");
+        byte sendRGBData[3] = {0,0,0};  //Change colour command data (defaults to off)
+
+        radio.stopListening();
+        // Send data over radio. Blocks until done
+        if (!radio.write( &sendRGBData, sizeof(sendRGBData) ))
+        {
+          //Serial.println(F("failed"));
+        }
+        break; 
+      }
+      
+      case 'F': //Fade to black FN(F = fade command, N = amount to fade by)
+      {
+        Serial.println("Not yet implemented");
+        break; 
+      }
+      
+      case 'B': //Blend colour from current colour to BRGB
+      {
+        Serial.println("Not yet implemented"); 
+        break; 
+      }
+      
+      case '\r': //Control char, do nothing
+      {
+        //Serial.println("Control char"); 
+        break; 
+      }
+      
+      case '\n': //Control char, do nothing
+      {
+        //Serial.println("Control char"); 
+        break; 
+      }
+      
+      case 'H': //Show help
+      case '?': //Show help
+      {
+        Serial.println("WirelessRGBPixel Control v1");
+        Serial.println("Commands available:");
+        Serial.println("Change colour: CR,G,B");
+        Serial.println("Random colour: R");
+        Serial.println("Turn off LEDs: O");
+        Serial.println("Show this help info: H/?");
+        Serial.println("Fade to black: Not implemented");
+        Serial.println("Blend to colour: Not implemented");
+        Serial.println("");
+        break;
+      }
+     
+      default: //Command not recoginsed, do nothing
+      {
+        Serial.println("Input not recognised");
+        break;  
+      }
     }
   }
-
-
 } // Loop
 
