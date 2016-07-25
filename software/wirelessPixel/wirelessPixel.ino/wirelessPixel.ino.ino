@@ -12,6 +12,9 @@ SoftwareSerial mySerial(-1,3);
 // Define the number of LEDs
 #define NUM_LEDS 1 //How many LEDs are we driving
 
+// Define the pixel address (an integer where 0 addresses all pixels, and 1-255 addresses individual pixels)
+int pixelAddress = 2;
+
 // Define the array of leds
 CRGB leds[NUM_LEDS];
 
@@ -21,12 +24,14 @@ RF24 radio(CE_PIN, CSN_PIN);
 // Define radio addresses - this is an array of addresses, each address can be 40bits (5bytes) long so why are they 6 bytes in the example?
 byte addresses[][6] = {"PIPE1","PIPE2"};
 
-byte receivedData[4] = {0,0,0,0}; // Array to hold data received by radio
+byte receivedData[5] = {0,0,0,0,0}; // Array to hold data received by radio
+
+bool processLEDData = false;
 
 void setup() {
 
   mySerial.begin( 9600 );
-  mySerial.println("Starting setup...");
+  mySerial.println("Starting setup");
   
   // Setup and configure rf radio
   radio.begin(); // Start up the radio
@@ -69,26 +74,31 @@ void loop() {
 
   
   
-  if ( !timeout ){ // Describe the results
+  if ( !timeout )
+  { 
     //mySerial.println("Received something...");
     radio.read( &receivedData, sizeof(receivedData) );
-    for(int i=0; i < 4; i++)
+    for(int i=0; i < 5; i++)
     {
-      mySerial.println(i);
+      mySerial.print(i);
+      mySerial.print(":");
       mySerial.println(receivedData[i]);
     }
+    processLEDData = true;
     
   }
   
-
-  //byte receivedData[4] = {100,100,100,0};
-  mySerial.println("Setting the LED to received values...");
-  // Turn the LED on
-  leds[0].red = receivedData[0];
-  leds[0].green = receivedData[1];
-  leds[0].blue = receivedData[2];
-  FastLED.show();
-
+  if (receivedData[4] == pixelAddress || receivedData[4] == 0 && processLEDData) //if the address received matches our assigned address or the default address, set the pixel to the received values
+  {
+    //byte receivedData[4] = {100,100,100,0};
+    mySerial.println("Setting the LED to received values...");
+    // Turn the LED on
+    leds[0].red = receivedData[1];
+    leds[0].green = receivedData[2];
+    leds[0].blue = receivedData[3];
+    FastLED.show();
+    processLEDData = false;
+  }
   //delay(50);
 
   //leds[0] = CRGB::Blue;

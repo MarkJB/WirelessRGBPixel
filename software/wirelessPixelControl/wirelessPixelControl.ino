@@ -62,16 +62,23 @@ void loop()
     {
       case 'C': //If the first char received is a 'C' that indicates a change colour CRGB command so get the rest of it and send it
       {
-        Serial.println("Colour change command: Cn,n,n");
-        byte sendRGBData[4] = {'C',0,0,0};  //Change colour command: C,R,G,B (defaults to off)
+        Serial.println("Colour change command: Cn,n,n,a");
+        byte sendRGBData[5] = {'C',0,0,0,0};  //Change colour command: C,R,G,B,a (defaults to off) where a is the pixel address 0-255 (0 is default and address all pixels)
         if (Serial.available() >= 2) 
         {
-          for (int i=0; i<3; i++) 
+          for (int i=1; i<5; i++) 
           {
             sendRGBData[i] = Serial.parseInt(); 
             //sendRGBData[i] = Serial.read();
           }
         }
+
+        for (int i=1; i<5; i++) 
+        {
+          Serial.print("Sending :");
+          Serial.println(sendRGBData[i]);
+        }
+        
         radio.stopListening();
         // Send data over radio. Blocks until done
         if (!radio.write( &sendRGBData, sizeof(sendRGBData) ))
@@ -84,12 +91,18 @@ void loop()
       case 'R': //If the first char received is a 'R' that indicates a RANDOM change colour CRGB command so generate the rest of it and send it
       {
         Serial.println("Random Colour change command: R");
-        byte sendRGBData[4] = {'C',0,0,0};  //Change colour command data (defaults to off)
+        byte sendRGBData[5] = {'C',0,0,0,0};  //Change colour command data (defaults to off)
 
-        for (int i=0; i<3; i++) 
+        for (int i=1; i<4; i++) 
         {
           sendRGBData[i] = random(0,256); 
           //sendRGBData[i] = Serial.read();
+        }
+
+        for (int i=1; i<5; i++) 
+        {
+          Serial.print("Sending :");
+          Serial.println(sendRGBData[i]);
         }
 
         radio.stopListening();
@@ -104,7 +117,7 @@ void loop()
       case 'O': //If the first char received is a 'O' turn off LEDs
       {
         Serial.println("Turn off LEDs command: O");
-        byte sendRGBData[3] = {0,0,0};  //Change colour command data (defaults to off)
+        byte sendRGBData[5] = {'C',0,0,0,0};  //Change colour command data (defaults to off)
 
         radio.stopListening();
         // Send data over radio. Blocks until done
