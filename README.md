@@ -10,6 +10,12 @@ Wireless RGB Pixel is just that, a wireless (NRF24L01+) RGB led (WS2812b) contro
 
 It is hoped that many of these 'pixels' can be manufactured and installed somewhere and controlled to create an interesting light show.
 
+As of Dec 2016 PCB is at v1.2.
+
+This uses the original circuit design. No pin mux or serial debug is available.
+
+![v1.2 PCB](https://github.com/MarkJB/WirelessRGBPixel/blob/master/hardware/Wireless%20RGB%20Pixel/v1.2pcb.jpg)
+
 More details on the Make Bournemouth Wiki and forum.
 
 https://www.makebournemouth.com/wiki/index.php/RGB_Wireless_Pixel
