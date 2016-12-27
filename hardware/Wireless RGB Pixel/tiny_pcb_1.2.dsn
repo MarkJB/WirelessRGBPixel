@@ -1,0 +1,198 @@
+(pcb "/home/mark/Documents/github/WirelessRGBPixel/hardware/Wireless RGB Pixel/tiny_pcb_1.2.dsn"
+  (parser
+    (string_quote ")
+    (space_in_quoted_tokens on)
+    (host_cad "KiCad's Pcbnew")
+    (host_version "4.0.4+e1-6308~48~ubuntu16.04.1-stable")
+  )
+  (resolution um 10)
+  (unit um)
+  (structure
+    (layer F.Cu
+      (type signal)
+      (property
+        (index 0)
+      )
+    )
+    (layer B.Cu
+      (type signal)
+      (property
+        (index 1)
+      )
+    )
+    (boundary
+      (path pcb 0  147320 -107188  147320 -126492  160528 -126492  160528 -107188
+            147320 -107188  147320 -107188)
+    )
+    (via "Via[0-1]_600:400_um")
+    (rule
+      (width 250)
+      (clearance 200.1)
+      (clearance 200.1 (type default_smd))
+      (clearance 50 (type smd_smd))
+    )
+  )
+  (placement
+    (component "Capacitors_Tantalum_SMD:TantalC_SizeB_EIA-3528_Reflow"
+      (place C1 149479 -113030 front 90 (PN 100u))
+    )
+    (component Custom:CONN7
+      (place P1 157226 -108712 front 180 (PN CONN_01X07))
+    )
+    (component Custom:NRF24L01+_SMT
+      (place U3 149606 -108712 back 180 (PN NRF24L01+))
+    )
+    (component Custom:WS2812B_SMT
+      (place U2 151384 -117094 front 0 (PN WS2812B))
+    )
+    (component Custom:ATTiny85_8S2_EIAJ_SO8
+      (place U1 159512 -114808 front 180 (PN "ATTINY85-P"))
+    )
+  )
+  (library
+    (image "Capacitors_Tantalum_SMD:TantalC_SizeB_EIA-3528_Reflow"
+      (outline (path signal 50  2700 1800  -2700 1800))
+      (outline (path signal 50  -2700 1800  -2700 -1800))
+      (outline (path signal 50  -2700 -1800  2700 -1800))
+      (outline (path signal 50  2700 -1800  2700 1800))
+      (outline (path signal 150  1800 -1500  -2300 -1500))
+      (outline (path signal 150  1800 1500  -2300 1500))
+      (pin Rect[T]Pad_1800x2230_um 2 1460 0)
+      (pin Rect[T]Pad_1800x2230_um 1 -1460 0)
+    )
+    (image Custom:CONN7
+      (pin Rect[T]Pad_900x2000_um 1 0 0)
+      (pin Rect[T]Pad_900x2000_um 2 1270 0)
+      (pin Rect[T]Pad_900x2000_um 3 2540 0)
+      (pin Rect[T]Pad_900x2000_um 4 3810 0)
+      (pin Rect[T]Pad_900x2000_um 5 5080 0)
+      (pin Rect[T]Pad_900x2000_um 6 6350 0)
+      (pin Rect[T]Pad_900x2000_um 7 7620 0)
+    )
+    (image Custom:NRF24L01+_SMT
+      (outline (path signal 150  10414 9652  -1651 9652))
+      (outline (path signal 150  -1651 -381  -1651 17653))
+      (outline (path signal 150  -1651 17653  10414 17653))
+      (outline (path signal 150  10414 17653  10414 -381))
+      (outline (path signal 150  -1651 -381  -1651 -254))
+      (outline (path signal 150  -635 -381  -1651 -381))
+      (outline (path signal 150  10414 -381  9525 -381))
+      (outline (path signal 150  10414 0  10414 -381))
+      (outline (path signal 150  -1651 0  -1651 -254))
+      (pin Rect[T]Pad_900x2000_um 1 0 0)
+      (pin Rect[T]Pad_900x2000_um 2 1270 0)
+      (pin Rect[T]Pad_900x2000_um 3 2540 0)
+      (pin Rect[T]Pad_900x2000_um 4 3810 0)
+      (pin Rect[T]Pad_900x2000_um 5 5080 0)
+      (pin Rect[T]Pad_900x2000_um 6 6350 0)
+      (pin Rect[T]Pad_900x2000_um 7 7620 0)
+      (pin Rect[T]Pad_900x2000_um 8 8890 0)
+    )
+    (image Custom:WS2812B_SMT
+      (outline (path signal 150  4953 -3937  4508.5 -4445))
+      (outline (path signal 150  4508.5 -4445  3937 -4445))
+      (outline (path signal 150  4000.5 -4445  3365.5 -4445))
+      (outline (path signal 150  4953 -2286  4953 -2730.5))
+      (outline (path signal 150  4953 -2286  4953 -635))
+      (outline (path signal 150  3302 -4445  0 -4445))
+      (outline (path signal 150  4953 635  4953 571.5))
+      (outline (path signal 150  4953 -635  4953 -571.5))
+      (outline (path signal 150  0 -4064  0 -3937))
+      (outline (path signal 150  0 635  952.5 635))
+      (outline (path signal 150  0 -635  889 -635))
+      (outline (path signal 150  4953 1143  4953 635))
+      (outline (path signal 150  4953 1143  0 1143))
+      (outline (path signal 150  0 635  0 1143))
+      (outline (path signal 150  0 -4445  0 -4064))
+      (outline (path signal 150  0 -635  0 -2794))
+      (outline (path signal 150  952.5 571.5  952.5 -635))
+      (pin Rect[T]Pad_1524x900_um 1 0 0)
+      (pin Rect[T]Pad_1524x900_um 2 0 -3365.5)
+      (pin Rect[T]Pad_1524x900_um 4 4953 0)
+      (pin Rect[T]Pad_1524x900_um 3 4953 -3365.5)
+    )
+    (image Custom:ATTiny85_8S2_EIAJ_SO8
+      (outline (path signal 150  1714.5 127  1698.96 28.887  1653.86 -59.622  1583.62 -129.863
+            1495.11 -174.96  1397 -190.5  1298.89 -174.96  1210.38 -129.863
+            1140.14 -59.622  1095.04 28.887  1079.5 127  1095.04 225.113
+            1140.14 313.622  1210.38 383.863  1298.89 428.96  1397 444.5
+            1495.11 428.96  1583.62 383.863  1653.86 313.622  1698.96 225.113))
+      (outline (path signal 150  6604 762  762 762))
+      (outline (path signal 150  762 -4508.5  6604 -4508.5))
+      (outline (path signal 150  6604 762  6604 -4508.5))
+      (outline (path signal 150  762 -4508.5  762 762))
+      (pin Rect[T]Pad_850x480_um 1 0 0)
+      (pin Rect[T]Pad_850x480_um 2 0 -1270)
+      (pin Rect[T]Pad_850x480_um 3 0 -2540)
+      (pin Rect[T]Pad_850x480_um 4 0 -3810)
+      (pin Rect[T]Pad_850x480_um 8 7366 0)
+      (pin Rect[T]Pad_850x480_um 7 7366 -1270)
+      (pin Rect[T]Pad_850x480_um 6 7366 -2540)
+      (pin Rect[T]Pad_850x480_um 5 7366 -3810)
+    )
+    (padstack Rect[T]Pad_850x480_um
+      (shape (rect F.Cu -425 -240 425 240))
+      (attach off)
+    )
+    (padstack Rect[T]Pad_900x2000_um
+      (shape (rect F.Cu -450 -1000 450 1000))
+      (attach off)
+    )
+    (padstack Rect[T]Pad_1524x900_um
+      (shape (rect F.Cu -762 -450 762 450))
+      (attach off)
+    )
+    (padstack Rect[T]Pad_1800x2230_um
+      (shape (rect F.Cu -900 -1115 900 1115))
+      (attach off)
+    )
+    (padstack "Via[0-1]_600:400_um"
+      (shape (circle F.Cu 600))
+      (shape (circle B.Cu 600))
+      (attach off)
+    )
+  )
+  (network
+    (net "Net-(U1-Pad3)"
+      (pins U2-4 U1-3)
+    )
+    (net "Net-(C1-Pad2)"
+      (pins C1-2 P1-6 U3-2 U2-3 U1-4)
+    )
+    (net "Net-(C1-Pad1)"
+      (pins C1-1 P1-2 U3-1 U3-3 U2-1 U1-8)
+    )
+    (net "Net-(P1-Pad1)"
+      (pins P1-1 U3-7 U1-5)
+    )
+    (net "Net-(P1-Pad5)"
+      (pins P1-5 U1-1)
+    )
+    (net "Net-(P1-Pad7)"
+      (pins P1-7 U2-2)
+    )
+    (net "Net-(P1-Pad4)"
+      (pins P1-4 U3-6 U1-6)
+    )
+    (net "Net-(P1-Pad3)"
+      (pins P1-3 U3-5 U1-7)
+    )
+    (net "Net-(U1-Pad2)"
+      (pins U3-4 U1-2)
+    )
+    (class kicad_default "" "Net-(C1-Pad1)" "Net-(C1-Pad2)" "Net-(P1-Pad1)"
+      "Net-(P1-Pad3)" "Net-(P1-Pad4)" "Net-(P1-Pad5)" "Net-(P1-Pad7)" "Net-(U1-Pad2)"
+      "Net-(U1-Pad3)"
+      (circuit
+        (use_via Via[0-1]_600:400_um)
+      )
+      (rule
+        (width 250)
+        (clearance 200.1)
+      )
+    )
+  )
+  (wiring
+    (wire (path F.Cu 250  156173 -108929  155956 -108712)(net "Net-(C1-Pad1)")(type protect))
+  )
+)
