@@ -12,7 +12,7 @@ It is hoped that many of these 'pixels' can be manufactured and installed somewh
 
 As of Dec 2016 PCB is at v1.2.
 
-This uses the original circuit design. No pin mux or serial debug is available.
+This version uses the original circuit design. No pin mux or serial debug is available.
 
 ![v1.2 PCB](https://github.com/MarkJB/WirelessRGBPixel/blob/master/hardware/Wireless%20RGB%20Pixel/v1.2pcb.jpg)
 
