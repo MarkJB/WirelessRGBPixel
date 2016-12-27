@@ -1,6 +1,6 @@
 Copyright 2016 Mark Benson.
 
-License: CC-BY 4.0
+License: CC-NC-BY 4.0
 
 No warranty implied or given. Use at your own risk.
 
