@@ -13,7 +13,11 @@
 bool radioNumber = 0;
 
 /* Hardware configuration: Set up nRF24L01 radio on SPI bus plus pins 7 & 8 */
+
+// RF24 radio(CE,CSN)
+// Arduino NANO NRF Adaptor board https://github.com/MarkJB/NRF24L01_Adaptors
 RF24 radio(9,10);
+
 /**********************************************************/
 
 byte addresses[][6] = {"PIPE1","PIPE2"};
