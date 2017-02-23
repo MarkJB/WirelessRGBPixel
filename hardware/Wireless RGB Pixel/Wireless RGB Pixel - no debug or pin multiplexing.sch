@@ -28,8 +28,7 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
-LIBS:custom
-LIBS:Wireless RGB Pixel_minimise_connections-cache
+LIBS:Wireless RGB Pixel - no debug or pin multiplexing-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
@@ -37,7 +36,7 @@ encoding utf-8
 Sheet 1 1
 Title "Wireless RGB Pixel"
 Date "2016-07-09"
-Rev "1"
+Rev "1.2"
 Comp ""
 Comment1 "Copyright Mark Benson 2016"
 Comment2 "License Creative Commons Atribution 4.0 (CC-BY 4.0)"
