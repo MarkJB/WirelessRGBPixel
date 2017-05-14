@@ -18,6 +18,6 @@ This version uses the original circuit design. No pin mux or serial debug is ava
 
 More details on the Make Bournemouth Wiki and forum.
 
-https://www.makebournemouth.com/wiki/index.php/RGB_Wireless_Pixel
+https://www.makebournemouth.com/wiki2/index.php/RGB_Wireless_Pixel
 
 https://www.makebournemouth.com/?page_id=39
